@@ -98,6 +98,28 @@ def subsets4(nums):
         dp_table.extend(new_subsets)  # Update DP table with new subsets
 
     return dp_table
+
+def find_subsets3(input_set):
+    n = len(input_set)
+    sol, res = [], []
+    def backtrack(index):
+        # Base case: if we've processed all elements
+        if index == n:
+    
+            return
+        
+        # Include the current element
+        sol.append(input_set[index])
+        backtrack(index + 1)  # Recurse with the element included
+        
+        # Exclude the current element (backtrack step)
+        sol.pop()
+        backtrack(index + 1)  # Recurse without the element
+
+  
+    backtrack(0)  # Start backtracking with an empty subset
+    return res
+
     
 
 
@@ -127,4 +149,5 @@ def main():
 
 
 if __name__ == "__main__":
+    
     main()

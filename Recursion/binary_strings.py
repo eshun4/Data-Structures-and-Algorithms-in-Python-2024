@@ -15,13 +15,13 @@ def binary_strings(n):
     T(n) = {
         T(n-1) + T(n-2) if n > 2
         1 if n == 0
-        1 if n == 1
+        1 if n == 2
     }
     """
     if n == 0:
         return 1
     if n == 1:
-        return 1
+        return 2  # Corrected base case for n == 1
     return binary_strings(n - 1) + binary_strings(n - 2)
     
 
