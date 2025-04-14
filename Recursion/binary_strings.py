@@ -27,15 +27,9 @@ def binary_strings(n):
 
 
 def main():
-    n = 5
-    result = binary_strings(n)
-    print(f"Number of binary strings of length {n} is {result}.")
-    n = 4
-    result = binary_strings(n)
-    print(f"Number of binary strings of length {n} is {result}.")
-    n = 3
-    result = binary_strings(n)
-    print(f"Number of binary strings of length {n} is {result}.")
+    for n in range(2, 11):
+        result = binary_strings(n)
+        print(f"Number of binary strings of length {n} is {result}.")
 
 
 

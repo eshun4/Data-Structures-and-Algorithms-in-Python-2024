@@ -72,35 +72,17 @@ def binary_strings_tabu(n):
 
 
 def main():
-    n = 5
-    result = binary_strings(n)
-    print(f"Number of binary strings of length {n} is {result}.")
-    n = 4
-    result = binary_strings(n)
-    print(f"Number of binary strings of length {n} is {result}.")
-    n = 3
-    result = binary_strings(n)
-    print(f"Number of binary strings of length {n} is {result}.")
+    for n in range(1, 11):
+        result = binary_strings(n)
+        print(f"Number of binary strings of length {n} is {result}.")
     
-    n = 5
-    result = binary_strings_memo(n, memo={})
-    print(f"Number of binary strings of length {n} is {result}.")
-    n = 4
-    result = binary_strings_memo(n, memo={})
-    print(f"Number of binary strings of length {n} is {result}.")   
-    n = 3
-    result = binary_strings_memo(n, memo={})    
-    print(f"Number of binary strings of length {n} is {result}.")
+    for n in range(1, 11):
+        result = binary_strings_memo(n, memo={})
+        print(f"Number of binary strings of length {n} is {result}.")
     
-    n = 5
-    result = binary_strings_tabu(n) 
-    print(f"Number of binary strings of length {n} is {result}.")
-    n = 4   
-    result = binary_strings_tabu(n)
-    print(f"Number of binary strings of length {n} is {result}.")
-    n = 3
-    result = binary_strings_tabu(n)
-    print(f"Number of binary strings of length {n} is {result}.")
+    for n in range(1, 11):
+        result = binary_strings_tabu(n)
+        print(f"Number of binary strings of length {n} is {result}.")
 
 
 if __name__ == '__main__':
