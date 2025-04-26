@@ -46,55 +46,68 @@ def possible_subsets(index, sum1, array, res=None, sol=None):
 
 
 def subsetSumTabulation(index, sum1, array):
-    # get the length of the array
+    # Get the length of the array
     n = len(array)
-    # Create the dp table
+    
+    # Create the dp table with dimensions (n+1) x (sum1+1)
+    # dp[i][j] will be True if a subset of array[0...i-1] has a sum equal to j
     dp = [[False] * (sum1 + 1) for _ in range(n + 1)]
     
-    # Base case fill in the first row
+    # Base case: A sum of 0 is always achievable (empty subset)
     dp[0][0] = True
     
+    # Initialize the first row for sums greater than 0 (not achievable with no elements)
     for j in range(1, sum1 + 1):
         dp[0][j] = False
         
+    # Fill the dp table
     for i in range(1, n + 1):
         for j in range(0, sum1 + 1):
-            # Exclude
+            # Exclude the current element (carry forward the value from the previous row)
             dp[i][j] = dp[i - 1][j]
             
+            # Include the current element if it does not exceed the current sum
             if j - array[i - 1] >= 0:
-                # Include
                 dp[i][j] |= dp[i - 1][j - array[i - 1]]
     
+    # Return whether the target sum is achievable using all elements
     return dp[n][sum1]
 
 def subsetSumTabulationOptimized(sum1, array):
     """
-    We just need two rows here.
+    Determines if a subset of the array sums to sum1 using a space-optimized DP approach.
+    This implementation uses only two rows to reduce memory usage.
+    Memory Complexity: O(2 * sum) = O(sum)
+    Time Complexity: O(n * sum)
     """
-    # get the length of the array
+    # Get the length of the array
     n = len(array)
-    # Create the dp table
+    
+    # Create the dp table with two rows
     dp = [[False] * (sum1 + 1) for _ in range(2)]
     
-    # first row is dp[0][j]
-    # second row is dp[1][j]
-    
-    # Base case fill in the first row
+    # Base case: A sum of 0 is always achievable (empty subset)
     dp[0][0] = True
     
+    # Initialize the first row for sums greater than 0 (not achievable with no elements)
     for j in range(1, sum1 + 1):
         dp[0][j] = False
-        
+    
+    # Fill the dp table row by row
     for i in range(1, n + 1):
         for j in range(0, sum1 + 1):
-            # dp[i] th row is 2nd row
+            # Carry forward the value from the previous row (exclude the current element)
             dp[1][j] = dp[0][j]
+            
+            # Include the current element if it does not exceed the current sum
             if j - array[i - 1] >= 0: 
                 dp[1][j] |= dp[0][j - array[i - 1]]
-        # Copy the 2nd row to the 0th row for next i calculation
+        
+        # Copy the second row to the first row for the next iteration
         for j in range(0, sum1 + 1):
             dp[0][j] = dp[1][j]
+    
+    # Return whether the target sum is achievable
     return dp[1][sum1]
 
 
