@@ -1,0 +1,51 @@
+"""
+Problem 28.3 - Spiral Order
+
+Given a positive and odd integer n, return an nxn grid of integers filled as follows: 
+the grid should have every number from 0 to n^2 - 1 
+in spiral order, starting by going down from the center 
+and turning clockwise.
+
+
+Example 1:
+n = 5
+Output: [[16, 17, 18, 19, 20],
+         [15,  4,  5,  6, 21],
+         [14,  3,  0,  7, 22],
+         [13,  2,  1,  8, 23],
+         [12, 11, 10,  9, 24]]
+
+Example 2:
+n = 1
+Output: [[0]]
+
+Example 3:
+n = 3
+Output: [[4, 5, 6],
+         [3, 0, 7],
+         [2, 1, 8]]
+Spiral order 1
+Constraints:
+
+0 < n < 1000
+n is odd
+"""
+
+def is_valid(board, r, c):
+    """ Check for the boundaries of board."""
+    return 0 <= r < len(board) and 0 <= c < len(board[0])
+
+def spiral_order(n):
+    # create a resulyt board of size n by n
+    result = [[0] * n for _ in range(n)]
+    # create a directions array
+    directions = [[1, 0], [0, -1], [-1, 0], [0, 1]]
+    # iterate through the result array and set the values to numbers following the specified directions
+    pass
+                    
+
+def main():
+    pass
+
+if __name__ == "__main__":
+    main()
