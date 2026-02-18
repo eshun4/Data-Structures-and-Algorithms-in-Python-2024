@@ -63,6 +63,55 @@ def tree_height(node):
     # return the height of the maximumof the 2 since the one with the largest is the vale. Add 1 to include the root node itself
     return max(left_height, right_height) + 1
 
+def depth(root, target):
+    """
+    Returns depth (number of edges) from root to target node.
+    If target isn't in the tree, returns -1.
+    """
+    if root is None:
+        return -1
+    if root is target:           # compare nodes, not values
+        return 0
+
+    left = depth(root.left, target)
+    if left != -1:
+        return left + 1
+
+    right = depth(root.right, target)
+    if right != -1:
+        return right + 1
+
+    return -1
+
+def LCA(root, node1, node2):
+    if root is None:
+        return None
+    if root is node1 or root is node2:
+        return root
+
+    left = LCA(root.left, node1, node2)
+    right = LCA(root.right, node1, node2)
+
+    if left is not None and right is not None:
+        return root
+
+    return left if left is not None else right
+
+def distance(root, node1, node2):
+    lca = LCA(root, node1, node2)
+    if lca is None:
+        return -1
+
+    d1 = depth(root, node1)
+    d2 = depth(root, node2)
+    dlca = depth(root, lca)
+
+    if d1 == -1 or d2 == -1:
+        return -1
+
+    return d1 + d2 - 2 * dlca
+
+
 def main():
     def check(label, got, expected):
         status = "PASS" if got == expected else "FAIL"
@@ -146,6 +195,28 @@ def main():
     check("tree_size(chain left)", tree_size(root5), 4)        # likely PASS despite bug (right sizes are 0)
 
     print("\nDone.")
+    
+        # -----------------------
+    # Test 6: depth / LCA / distance on root4
+    # Using references to actual nodes
+    # -----------------------
+    n4 = root4.left.left      # node with val 4
+    n5 = root4.left.right     # node with val 5
+    n6 = root4.right.left     # node with val 6
+    n7 = root4.right.right    # node with val 7
+    n2 = root4.left           # node with val 2
+    n3 = root4.right          # node with val 3
+
+    check("depth(root4, node4)", depth(root4, n4), 2)
+    check("depth(root4, node3)", depth(root4, n3), 1)
+
+    check("LCA(4,5).val", LCA(root4, n4, n5).val, 2)
+    check("LCA(4,6).val", LCA(root4, n4, n6).val, 1)
+    check("LCA(3,7).val", LCA(root4, n3, n7).val, 3)
+
+    check("distance(4,5)", distance(root4, n4, n5), 2)  # 4->2->5
+    check("distance(4,6)", distance(root4, n4, n6), 4)  # 4->2->1->3->6
+    check("distance(6,7)", distance(root4, n6, n7), 2)  # 6->3->7
 
 
 if __name__ =="__main__":
