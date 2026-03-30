@@ -65,7 +65,7 @@ class Solution:
                     
                     
         left = 1
-        right = sum(sweetness) 
+        right = sum(sweetness) // (k + 1)
         answer = -1 
         
         while left <= right:
